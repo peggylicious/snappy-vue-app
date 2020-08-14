@@ -1,0 +1,58 @@
+{
+    "todos": [
+      {
+        "title": "quis ut nam facilis et officia qui",
+        "completed": true,
+        "id": 1,
+        "photo": "pexels-andrea-piacquadio-840996-office.jpg",
+        "searchKeys": "['office', 'interior', 'happy']",
+        "liked": false
+      },
+      {
+        "title": "fugiat veniam minus",
+        "completed": false,
+        "id": 2,
+        "photo": "pexels-bess-hamiti-35537-baby-boy.jpg",
+        "searchKeys": "['baby', 'boy', 'baby boy', 'child']",
+        "liked": false
+
+      },
+      {
+        "title": "fugiat veniam minus",
+        "completed": false,
+        "id": 3,
+        "photo": "pexels-cadeau-maestro-1170412-office.jpg",
+        "searchKeys": "['office', 'interior']",
+        "liked": false
+
+      },
+      {
+        "title": "fugiat veniam minus",
+        "completed": false,
+        "id": 4,
+        "photo": "pexels-daniel-xavier-908602-happy.jpg",
+        "searchKeys": "['happy', 'joy']",
+        "liked": false
+
+      },
+      {
+        "title": "fugiat veniam minus",
+        "completed": false,
+        "id": 5,
+        "photo": "pexels-just-name-1236678-happy.jpg",
+        "searchKeys": "['happy', 'joy']",
+        "liked": false
+
+      },
+      {
+        "title": "fugiat veniam minus",
+        "completed": false,
+        "id": 6,
+        "photo": "pexels-kha-ruxury-933186-baby-girl.jpg",
+        "searchKeys": "['baby', 'girl', 'baby girl', 'child']",
+        "liked": false
+
+      }
+
+    ]
+  }

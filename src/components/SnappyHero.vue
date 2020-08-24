@@ -2,18 +2,19 @@
     <div class="hero">
         <form action="" @submit="onSubmit" class="snappy-form" v-if="submitted">
           <div class="search-wrapper">
-                <input type="search" name="" id="" class="snappy-search" v-model="searchPixQuery"  @keyup.enter="getFilteredPhotos(searchPixQuery)">
+                <input type="search" name="" id="" class="snappy-search" v-model="searchPixQuery">
                 <button class="snappy-btn">search</button>
           </div>
           <p class="keywords">Keywords: <small>Baby, happy, office</small></p>
         </form>
-        <p v-else class="hero-navigate">Back to all photos</p>
+        <router-link to="/" class="hero-navigate" v-else>Back to all photos</router-link>
+        <!-- <p v-else class="hero-navigate">Back to all photos</p> -->
         <div class="overlay"></div>
     </div>
 </template>
 
 <script>
-    // import {mapMutations, mapActions} from 'vuex'
+    import {mapMutations, mapActions} from 'vuex'
 
     export default {
         data(){
@@ -23,15 +24,24 @@
             }
         },
         methods: {
-            // ...mapMutations(['filterSearch']),
-            // ...mapActions(['getPhotos', 'getFilteredPhotos', 'displayQuery']),
+            ...mapMutations(['filterSearch']),
+            ...mapActions(['getPhotos', 'getFilteredPhotos', 'displayQuery']),
             onSubmit(e) {
                 e.preventDefault();
                 this.submitted = false;
                 this.displayQuery(this.searchPixQuery)
                 this.$router.push("/todos?q="+this.searchPixQuery);
+                // console.log(this.$route.query)
             }
         },
+        watch: {
+            $route() {
+                if(this.$route.path == "/"){
+                    this.submitted = true;
+
+                }
+            }
+        }
     }
 </script>
 
@@ -65,6 +75,13 @@
     .hero-navigate, .snappy-form{
         position: relative;
         z-index: 1;
+    }
+    .hero-navigate{
+        text-decoration: none;
+        color: #fff;
+    }
+    .hero-navigate:visited{
+        color: #fff;
     }
     .snappy-search, .snappy-btn {
         padding: 8px 12px;

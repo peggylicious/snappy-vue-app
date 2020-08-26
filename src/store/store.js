@@ -7,11 +7,16 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         photos: [],
-        todos: []
+        todos: [],
+        modalValue: null,
+        modalStatus: false
     },
 
     getters: {
-        allPhotos: (state) => state.photos
+        allPhotos: (state) => state.photos,
+        modalDialog: (state) => state.modalValue,
+        getModalStatus: (state) => state.modalStatus,
+        getModalValue: (state) => state.modalValue
     },
     actions: {
         async getPhotos({ commit }){
@@ -52,6 +57,11 @@ export const store = new Vuex.Store({
             state.photos.find(el => el.id === payload.photoId).liked = payload.liked
             // return !state.photos[payload].liked;
 
+        },
+
+        isShowing: (state, payload) => {
+            state.modalStatus = !state.modalStatus;
+            state.modalValue = JSON.parse(payload);
         }
     },
 })

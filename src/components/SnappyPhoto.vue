@@ -14,17 +14,17 @@
                 </svg>
             </span>
         </p>
-        <div class="overlay"  @click="isShowing()"></div>
-        <div class="modal" v-show="showing">
+        <div class="overlay" @click="isShowing(sentPhoto)"></div>
+        <!-- <div class="modal" v-show="showing">
             <span @click="isShowing()">X</span>
             <h3>Modal</h3>
-        </div>
+        </div> -->
     </div>
   <!-- </div> -->
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapMutations, mapGetters} from 'vuex'
 
 export default {
     props: ['sentPhoto', 'index'],
@@ -32,11 +32,14 @@ export default {
         return {
             isliked: false,
             xstyle: {},
-            showing: false
+            showing: !this.getModalStatus
         }
     },
+    computed: {
+        ...mapGetters(['getModalStatus'])
+    },
     methods: {
-        ...mapMutations(['likePhoto']),
+        ...mapMutations(['likePhoto', 'isShowing']),
         getImg(pic){
             return require('../assets/images/'+ pic)
         },
@@ -44,11 +47,10 @@ export default {
             this.isliked = !this.isliked;
             this.likePhoto({liked:this.isliked, photoId: this.sentPhoto.id});
         },
-        isShowing(){
-            this.showing = !this.showing;
-            document.querySelector('.overlay').style.display = "none";
-            document.querySelector('.photo-wrapper').style.position = "static";
-        }
+        // isShowing(){
+            // this.$store.state.modalStatus = !this.$store.state.modalStatus
+            // console.log( this.$store.state.modalStatus)
+        // }
 
     }
 }

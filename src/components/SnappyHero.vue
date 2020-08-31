@@ -1,6 +1,6 @@
 <template>
     <div class="hero">
-        <form action="" @submit="onSubmit" class="snappy-form" v-if="submitted">
+        <form action="" @submit="onSubmit" class="snappy-form" v-if="getSubmitted">
           <div class="search-wrapper">
                 <input type="search" name="" id="" class="snappy-search" v-model="searchPixQuery">
                 <button class="snappy-btn">search</button>
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-    import {mapMutations, mapActions} from 'vuex'
+    import {mapMutations, mapActions, mapGetters} from 'vuex'
 
     export default {
         data(){
             return {
-                submitted: true,
+                // submitted: true,
                 searchPixQuery: ''
             }
         },
@@ -28,19 +28,38 @@
             ...mapActions(['getPhotos', 'getFilteredPhotos', 'displayQuery']),
             onSubmit(e) {
                 e.preventDefault();
-                this.submitted = false;
+                // this.submitted = false;
+                this.$store.state.submitted = false;
                 this.displayQuery(this.searchPixQuery)
-                this.$router.push("/todos?q="+this.searchPixQuery);
+                this.$router.push("/search/"+this.searchPixQuery);
                 // console.log(this.$route.query)
             }
+        },
+        computed: {
+            ...mapGetters(['getSubmitted'])
         },
         watch: {
             $route() {
                 if(this.$route.path == "/"){
-                    this.submitted = true;
-
+                    // this.submitted = true;
+                    this.$store.state.submitted = true;
                 }
+
             }
+        },
+        created() {
+            // if (this.$route.path == "/search"){
+            //         this.displayQuery(this.$route.params.id)
+            //         console.log(this.$route.params.id)
+            //         this.$router.push("/search/"+this.searchPixQuery);
+            // }
+            // window.addEventListener('onload', function(){
+            //     if (this.$route.path == "/search"){
+            //         this.displayQuery(this.$route.params.id)
+            //         console.log(this.$route.params.id)
+            //         this.$router.push("/search/"+this.searchPixQuery);
+            //     }
+            // })
         }
     }
 </script>

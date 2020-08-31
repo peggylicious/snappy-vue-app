@@ -8,6 +8,14 @@ export const routes = [
     },
     {
         path: '/:id',
+        component: Home
+    },
+    {
+        path: '/search/:id',
         component: SnappySearchResult
-    }
+    },
+    {
+        path: '/photos/:id',
+        component: Home
+    },
 ]

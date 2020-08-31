@@ -6,7 +6,7 @@
             <!-- <div class="modal" v-if="getModalStatus"> -->
                 <div class="modal-header">
                     <h3>Modal {{ getModalValue.id }}</h3>
-                    <span @click="isShowing(getModalValue)" class="close"><span class="ham"></span></span>
+                    <span @click="closeModal(getModalValue)" class="close"><span class="ham"></span></span>
                 </div>
 
                 <img :src="getModalValue.src.large" alt="">
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapMutations } from 'vuex'
+  import { mapGetters, mapMutations, mapActions } from 'vuex'
   export default {
       // name: 'snappy-photo',
         computed: {
@@ -29,7 +29,14 @@
         },
         methods: {
             ...mapMutations(['isShowing']),
-
+            ...mapActions(['getSinglePhoto']),
+            closeModal(getModalValue){
+                // this.getSinglePhoto(this.id);
+                this.isShowing(getModalValue);
+                // this.$router.push("/photos/"+this.id);
+                // this.$router.go(-1);
+                console.log(this.$router.go(-1))
+            }
 
         },
   }

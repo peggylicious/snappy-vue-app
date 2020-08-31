@@ -3,7 +3,9 @@
     <div class="snappy-conta" :class="{demo: getModalStatus}">
       <snappy-header></snappy-header>
       <snappy-hero></snappy-hero>
-      <div :class="{'overlay-body': getModalStatus}"></div>
+      <!-- <div :class="{'overlay-body': getModalStatus}"> -->
+        <snappy-modal></snappy-modal>
+      <!-- </div> -->
       <router-view></router-view>
     </div>
   </div>
@@ -13,12 +15,15 @@
 import {mapGetters} from 'vuex'
 import SnappyHeader from './components/SnappyHeader'
 import SnappyHero from './components/SnappyHero'
+// import SnappyModal from './components/SnappyModal'
+import SnappyModal from './components/ProjectModal'
 
 export default {
   name: 'App',
   components: {
     SnappyHeader,
     SnappyHero,
+    SnappyModal
   },
   computed: {
     ...mapGetters(['getModalStatus'])
@@ -52,7 +57,7 @@ body{
 }
 .overlay-body{
   position: absolute;
-  top: 0;
+  /* top: 0; */
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, .8);

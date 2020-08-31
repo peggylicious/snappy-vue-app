@@ -1,17 +1,17 @@
 <template>
     <div class="search-result">
         <h1 class="search-result-title">List</h1>
-        <p class="search-result-alert">Showing search results for <b>"{{ this.$route.query.q }}"</b></p>
+        <p class="search-result-alert">Showing search results for <b>"{{ this.$route.params.id }}"</b></p>
         <div class="all-photos">
             <div class="photos-container">
-                <snappy-photo v-for="(photo, index) in allPhotos" :key="photo.id" :sentPhoto="photo" :index="index"></snappy-photo>
+                <snappy-photo v-for="(photo, index) in allPhotos" :key="photo.id" :sentPhoto="photo" :index="index" :id="photo.id"></snappy-photo>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import SnappyPhoto from './SnappyPhoto'
 export default {
     components: {
@@ -20,6 +20,21 @@ export default {
     computed: {
         ...mapGetters(['allPhotos'])
     },
+    methods: {
+        ...mapActions(['displayQuery'])
+    },
+    created(){
+        console.log("Create Man")
+        // this.displayQuery(this.$route.params.id)
+    }
+    // beforeCreate: {
+
+    // }
+    // created() {
+    //     // window.addEventListener('beforeunload', function(e){
+    //     //     // alert("Hi")
+    //     // })
+    // }
 }
 </script>
 

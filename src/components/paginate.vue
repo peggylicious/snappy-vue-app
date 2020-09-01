@@ -50,9 +50,10 @@ export default {
         padding-bottom: 25px;
     }
     .paginate .page{
-        padding: 8px 16px;
+        padding: 8px 10px;
         color: #fff;
         text-decoration: none;
+        font-size: 14px;
     }
     .router-link{
         opacity: 0;
@@ -66,5 +67,13 @@ export default {
         opacity: 1;
         transition: all .7s;
 
+    }
+    @media only screen and (min-width: 767px) {
+        .paginate .page{
+            padding: 8px 16px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
     }
 </style>

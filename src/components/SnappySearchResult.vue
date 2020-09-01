@@ -12,6 +12,9 @@
                 <router-link :to="'/album/'+ $route.params.id + '/page/3'" class="page">3</router-link>
                 <router-link :to="'/album/'+ $route.params.id + '/page/4'" class="page">4</router-link>
                 <router-link :to="'/album/'+ $route.params.id + '/page/5'" class="page">5</router-link>
+                <span class="page" v-show="$route.params.page > 5"><b>. . .</b></span>
+                <!-- <router-link :to="'/album/'+ $route.params.id + '/page/' + $route.params.page" class="page" v-show="$route.params.page > 5">{{ ($route.params.page > 5) ? $route.params.page :  }}</router-link> -->
+                <router-link :to="'/album/'+ $route.params.id + '/page/' + $route.params.page" class="page" v-show="$route.params.page > 5">{{ $route.params.page }}</router-link>
             </snappy-paginate>
         </div>
     </div>
@@ -39,6 +42,7 @@ export default {
                 this.$router.push('/album/' + routeId + '/page/1')
             }else{
                 this.$router.push('/album/' + routeId + '/page/' + routePage)
+                // this.addToLinks();
             }
         },
         playPrev(){
@@ -49,10 +53,23 @@ export default {
             }else{
                 this.$router.push('/album/' + routeId + '/page/' + routePage)
             }
+        },
+        addToLinks(){
+            // let routeLength = document.querySelectorAll('a.page').length;
+            let routeLink = document.querySelectorAll('a.page');
+            let paginate = document.querySelector('.paginate');
+            if(routeLink.length < this.$route.params.page){
+                console.log(routeLink.length + ' is less than ' + this.$route.params.page);
+                routeLink[0].innerHTML = this.$route.params.page;
+                let newItem = routeLink[0]
+                paginate.removeChild(routeLink[0])
+                paginate.insertBefore(newItem, paginate.childNodes[5])
+            }
+            // console.log(this.$route.params.page)
         }
     },
     created(){
-        console.log("Create Man")
+        // console.log("Create Man")
         // this.displayQuery(this.$route.params.id)
         let queryPage = {id: this.$route.params.id, page: this.$route.params.page}
         this.displayQuery(queryPage)

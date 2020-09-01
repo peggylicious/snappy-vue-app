@@ -45,9 +45,26 @@ export default {
 </script>
 
 <style scoped>
+    .paginate{
+        padding-top: 15px;
+        padding-bottom: 25px;
+    }
     .paginate .page{
         padding: 8px 16px;
         color: #fff;
         text-decoration: none;
+    }
+    .router-link{
+        opacity: 0;
+        transition: all .7s;
+    }
+    .router-link-active{
+        /* background-color: grey; */
+        background: #393e46;
+        box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
+        border-radius: 10%;
+        opacity: 1;
+        transition: all .7s;
+
     }
 </style>

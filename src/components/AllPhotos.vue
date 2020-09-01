@@ -9,6 +9,8 @@
             <router-link :to="'/photos/page/3'" class="page">3</router-link>
             <router-link :to="'/photos/page/4'" class="page">4</router-link>
             <router-link :to="'/photos/page/5'" class="page">5</router-link>
+            <span class="page" v-show="$route.params.id > 5"><b>. . .</b></span>
+            <router-link :to="'/photos/page/'+ $route.params.id" class="page" v-show="$route.params.id > 5">{{ $route.params.id }}</router-link>
         </snappy-paginate>
     </div>
 </template>

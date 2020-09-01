@@ -37,7 +37,8 @@ export const store = new Vuex.Store({
                     authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
                 },
                 params: {
-                    page: payload
+                    page: payload,
+                    // total_results: 1000
                 }
             })
             console.log(response.data)
@@ -64,6 +65,7 @@ export const store = new Vuex.Store({
                     page: payload.page
                 }
             });
+            console.log(response.data.total_results)
             commit('setPhotos', response.data)
         },
         async getSinglePhoto ({ commit }, payload) {
@@ -88,7 +90,7 @@ export const store = new Vuex.Store({
     },
     mutations: {
         setPhotos: (state, album) => {
-            console.log(album.photos)
+            // console.log(album.photos)
             return state.photos = album.photos;
         },
         setQueryPhoto: (state, album) => {

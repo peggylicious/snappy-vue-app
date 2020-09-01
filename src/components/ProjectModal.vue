@@ -85,7 +85,7 @@
         transform: rotate(45deg);
     }
     .modal{
-        width: 400px;
+        width: 80%;
         height: 400px;
         position: absolute;
         top: 50%;

@@ -2,21 +2,14 @@
     <div class="all-photos">
         <div class="photos-container">
             <snappy-photo v-for="(photo, index) in allPhotos" :key="photo.id" :sentPhoto="photo" :index="index" :id="photo.id"></snappy-photo>
-            <!-- <transition name="fade">
-                <div class="modal" v-if="getModalStatus">
-                    <div class="modal-header">
-                        <h3>Modal {{ getModalValue.id }}</h3>
-                        <span @click="isShowing(getModalValue)" class="close">X</span>
-                    </div>
-
-                    <img :src="getModalValue.src.large" alt="">
-                    <div class="modal-footer">
-                        <p class="photographer">By {{ getModalValue.photographer }}</p>
-                    </div>
-                </div>
-            </transition> -->
         </div>
-        <snappy-paginate></snappy-paginate>
+        <snappy-paginate @nextPage="playNext()" @prevPage="playPrev()">
+            <router-link :to="'/photos/page/1'" class="page">1</router-link>
+            <router-link :to="'/photos/page/2'" class="page">2</router-link>
+            <router-link :to="'/photos/page/3'" class="page">3</router-link>
+            <router-link :to="'/photos/page/4'" class="page">4</router-link>
+            <router-link :to="'/photos/page/5'" class="page">5</router-link>
+        </snappy-paginate>
     </div>
 </template>
 
@@ -40,39 +33,35 @@
             getImgL(pic){
                 return require('../assets/images/'+ pic)
             },
+            // Route Navigation
+            playNext(){
+                if(this.$route.params.id === undefined){
+                    console.log('Hi')
+                    this.$route.params.id = '/1'
+                    this.$router.push('/photos/page/1')
+                }else{
+                    let  routeId = Number(this.$route.params.id) + 1;
+                    this.$router.push('/photos/page/' + routeId)
+                }
+            },
+            playPrev(){
+                if(this.$route.params.id <= 1 || this.$route.params.id === undefined){
+                    return
+                }else{
+                    let  routeId = Number(this.$route.params.id) - 1;
+                    this.$router.push('/photos/page/' + routeId)
+                }
+            }
         },
         created(){
             this.getPhotos(this.$route.params.id) // Gets all photos
-            console.log("Created")
-            console.log(this.$route.params.id)
         },
         watch: {
             $route() {
-                // react to route changes...
-                if(this.$route.params.id === ""){
-                    // this.$route.params.id = "1"
-                    // return this.$router.push('/1')
-                    console.log("Hello " + this.$route.params.id)
-                    // this.getPhotos(this.$route.params.id)
-                }
-                // else{
-                //     this.getPhotos(this.$route.params.id)
-                // }
+                // Reacting to changes in route
+                this.getPhotos(this.$route.params.id)
             }
         },
-        // beforeRouteEnter(fto, rom, next){
-        //     console.log('beforeRouteUpdate')
-        //     console.log('beforeRouteUpdate',  from.path)
-        //     // if(this.$route.params.id === ""){
-        //     //     this.$route.params.id = "1"
-        //         // this.$router.push('/1')
-        //     //     // this.getPhotos(this.$route.params.id)
-        //     // }
-        //     to.path
-        //     // if(from.path === "/"){
-        //         next({path: '/1'})
-        //     // }
-        // }
     }
 </script>
 

@@ -27,7 +27,11 @@ export default {
   },
   computed: {
     ...mapGetters(['getModalStatus'])
-  }
+  },
+// beforeRouteLeave(next){
+//         console.log("Before Route Update")
+//         next()
+//     }
 }
 </script>
 

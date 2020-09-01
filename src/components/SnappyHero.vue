@@ -31,7 +31,9 @@
                 // this.submitted = false;
                 this.$store.state.submitted = false;
                 this.displayQuery(this.searchPixQuery)
-                this.$router.push("/search/"+this.searchPixQuery);
+                // this.$router.push("/search/"+this.searchPixQuery);
+                this.$router.push("/album/"+this.searchPixQuery + '/page/' + 1);
+
                 // console.log(this.$route.query)
             }
         },

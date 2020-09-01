@@ -60,8 +60,8 @@ export const store = new Vuex.Store({
                     authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
                 },
                 params: {
-                    query: payload,
-
+                    query: payload.id,
+                    page: payload.page
                 }
             });
             commit('setPhotos', response.data)
@@ -71,10 +71,6 @@ export const store = new Vuex.Store({
                 headers: {
                     authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
                 },
-                // params: {
-                //     id: payload,
-
-                // }
             });
             console.log("Response is", response.data)
             commit('isShowing', response.data)
@@ -84,10 +80,6 @@ export const store = new Vuex.Store({
                 headers: {
                     authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
                 },
-                // params: {
-                //     id: payload,
-
-                // }
             });
             console.log("Response is", response.data)
             commit('likePhoto', response.data)
@@ -115,11 +107,8 @@ export const store = new Vuex.Store({
         },
         likePhoto: (state, payload) => {
             console.log("Payload = " + payload)
-            // state.photos.find(el => el.id === payload.photoId).liked = payload.liked
-            // return !state.photos[payload].liked;
             payload.liked = !payload.liked
-            state.modalValue.liked = !state.modalValue.liked
-
+            // state.modalValue.liked = !state.modalValue.liked
         },
 
         isShowing: (state, payload) => {

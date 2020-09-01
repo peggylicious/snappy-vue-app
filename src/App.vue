@@ -65,6 +65,6 @@ body{
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, .8);
-  z-index: 1;
+  z-index: 8;
 }
 </style>

@@ -5,7 +5,7 @@
             <div class="modal">
             <!-- <div class="modal" v-if="getModalStatus"> -->
                 <div class="modal-header">
-                    <h3>Modal {{ getModalValue.id }}</h3>
+                    <!-- <h3>Modal {{ getModalValue.id }}</h3> -->
                     <span @click="closeModal(getModalValue)" class="close"><span class="ham"></span></span>
                 </div>
 
@@ -43,6 +43,11 @@
 </script>
 
 <style scoped>
+    .close{
+        padding: 15px 0px 10px;
+        margin-left: auto;
+        margin-right: -5px;
+    }
     .overlay-body{
     position: absolute;
     top: 0;
@@ -85,7 +90,7 @@
         transform: rotate(45deg);
     }
     .modal{
-        width: 80%;
+        width: 90%;
         height: 400px;
         position: absolute;
         top: 50%;
@@ -164,6 +169,9 @@
         .photos-container{
             padding-left: 16px;
             padding-right: 16px;
+        }
+        .modal{
+            width: 60%;
         }
     }
 </style>

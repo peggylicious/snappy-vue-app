@@ -16,7 +16,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         photos: [],
-        todos: [],
+        // todos: [],
         modalValue: null,
         modalStatus: false,
         queryArray: [],
@@ -48,7 +48,6 @@ export const store = new Vuex.Store({
 
         },
         async getFilteredPhotos ({ commit }, payload) {
-            // const response = await axios.get('http://localhost:3000/todos');
             const response = await axios.get('https://api.pexels.com/v1/search', {
                 headers: {
                     authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
@@ -116,15 +115,14 @@ export const store = new Vuex.Store({
             state.modalStatus = !state.modalStatus;
             // state.modalValue = JSON.parse(payload);
             state.modalValue = payload;
+
             /****** */
             // Save state to localStorage
             /****** */
-
             localStorage.setItem('modalStatus', true)
             localStorage.setItem('modalValue.id', state.modalValue.id)
             localStorage.setItem('modalValue', JSON.stringify(state.modalValue))
             localStorage.setItem('submitted', state.submitted)
-            // console.log('This is', state.modalValue)
         },
         initializeStore: (state) => {
 
@@ -138,8 +136,6 @@ export const store = new Vuex.Store({
                     state.modalValue = JSON.parse(localStorage.getItem('modalValue'))
                     state.submitted = !localStorage.getItem('submitted')
                 }
-                // console.log("Check oooo " + state.modalValue.id)
-                // console.log("Check oooo Local " + JSON.parse(localStorage.getItem('modalValue')).id)
             }
         }
     },

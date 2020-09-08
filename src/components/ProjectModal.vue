@@ -31,11 +31,9 @@
             ...mapMutations(['isShowing', 'initializeStore']),
             ...mapActions(['getSinglePhoto',]),
             closeModal(getModalValue){
-                // this.getSinglePhoto(this.id);
                 this.isShowing(getModalValue);
-                // this.$router.push("/photos/"+this.id);
-                // this.$router.go(-1);
-                console.log(this.$router.go(-1))
+                // console.log(this.$router.go(-1))
+                this.$router.go(-1)
             }
 
         },
@@ -57,12 +55,6 @@
             console.log('Mounted');
 
         }
-        // beforeRouteEnter (to, from, next) {
-        //     next(vm => {
-        //         // access to component instance via `vm`
-        //         console.log('My', vm)
-        //     })
-        // }
   }
 </script>
 

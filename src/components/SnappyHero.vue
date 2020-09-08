@@ -55,13 +55,9 @@
             //         console.log(this.$route.params.id)
             //         this.$router.push("/search/"+this.searchPixQuery);
             // }
-            // window.addEventListener('onload', function(){
-            //     if (this.$route.path == "/search"){
-            //         this.displayQuery(this.$route.params.id)
-            //         console.log(this.$route.params.id)
-            //         this.$router.push("/search/"+this.searchPixQuery);
-            //     }
-            // })
+            if(this.$route.path.includes("album")){ // Set submitted value to false on page reload i.e. hide search input on page reload
+                this.$store.state.submitted = false;
+            }
         }
     }
 </script>

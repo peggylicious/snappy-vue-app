@@ -13,7 +13,13 @@ export const routes = [
     {
         path: '/photos/page/:id',
         // path: '/album/page/:id',
-        component: Home
+        component: Home,
+        // beforeRouteEnter (to, from, next) {
+        //     next(vm => {
+        //         // access to component instance via `vm`
+        //         console.log('My', vm)
+        //     })
+        // }
     },
     {
         path: '/album/:id/page/:page',

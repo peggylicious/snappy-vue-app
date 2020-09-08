@@ -28,8 +28,8 @@
 
         },
         methods: {
-            ...mapMutations(['isShowing']),
-            ...mapActions(['getSinglePhoto']),
+            ...mapMutations(['isShowing', 'initializeStore']),
+            ...mapActions(['getSinglePhoto',]),
             closeModal(getModalValue){
                 // this.getSinglePhoto(this.id);
                 this.isShowing(getModalValue);
@@ -39,6 +39,30 @@
             }
 
         },
+        created(){
+            if(this.getModalStatus ===  false){
+                // this.getModalStatus = true;
+                // this.getSinglePhoto(this.id);
+            console.log('Created');
+
+            }
+        },
+        beforeCreate(){
+            console.log('BeforeCreate');
+            // if()
+            this.$store.commit('initializeStore');
+
+        },
+        mounted(){
+            console.log('Mounted');
+
+        }
+        // beforeRouteEnter (to, from, next) {
+        //     next(vm => {
+        //         // access to component instance via `vm`
+        //         console.log('My', vm)
+        //     })
+        // }
   }
 </script>
 

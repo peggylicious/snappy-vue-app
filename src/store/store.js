@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import createPersistedState from "vuex-persistedstate"
+import router from '../main'
+// import createPersistedState from "vuex-persistedstate"
 // import { createClient } from 'pexels';
 
 // const client = createClient('563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680');
@@ -99,8 +100,6 @@ export const store = new Vuex.Store({
         filterSearch: (state, payload) => {
             // Loop hrough todos
             // Loop through todo keywords array
-
-
             state.todos = state.photos.filter(element => {
                 console.log(element.searchKeys)
 
@@ -117,13 +116,32 @@ export const store = new Vuex.Store({
             state.modalStatus = !state.modalStatus;
             // state.modalValue = JSON.parse(payload);
             state.modalValue = payload;
+            /****** */
+            // Save state to localStorage
+            /****** */
 
-            // let pagePosition = window.pageYOffset;***
-            // document.querySelector('body').scrollTop = pagePosition;
-            // document.getElementsByClassName('modal')[0].style.top = pagePosition + 'px';
-            // console.log(pagePosition)
-            // console.log(event.target)
+            localStorage.setItem('modalStatus', true)
+            localStorage.setItem('modalValue.id', state.modalValue.id)
+            localStorage.setItem('modalValue', JSON.stringify(state.modalValue))
+            localStorage.setItem('submitted', state.submitted)
+            // console.log('This is', state.modalValue)
+        },
+        initializeStore: (state) => {
+
+                    /************************** */
+                    /****  Persisted State ****/
+                    /************************** */
+
+            if(router.currentRoute.params.id === localStorage.getItem('modalValue.id')){ // Check if route id is same as in localStorage
+                if (localStorage.getItem('modalStatus')) { //Check if status is true in localStorage
+                    state.modalStatus = true;
+                    state.modalValue = JSON.parse(localStorage.getItem('modalValue'))
+                    state.submitted = !localStorage.getItem('submitted')
+                }
+                // console.log("Check oooo " + state.modalValue.id)
+                // console.log("Check oooo Local " + JSON.parse(localStorage.getItem('modalValue')).id)
+            }
         }
     },
-    plugins: [createPersistedState()]
+    // plugins: [createPersistedState()]
 })

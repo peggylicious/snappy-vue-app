@@ -90,6 +90,10 @@ export default {
         padding-left: 16px;
         padding-right: 16px;
     }
+    .search-result-alert{
+        padding-top: 10px;
+        padding-bottom: 15px;
+    }
     .search-result-alert, .search-result-title{
         color: #fff;
     }

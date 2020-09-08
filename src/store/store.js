@@ -20,7 +20,10 @@ export const store = new Vuex.Store({
         modalValue: null,
         modalStatus: false,
         queryArray: [],
-        submitted: true
+        submitted: true,
+        searchHits: true,
+        displayPagination: true,
+        displayError: true
     },
 
     getters: {
@@ -28,7 +31,10 @@ export const store = new Vuex.Store({
         modalDialog: (state) => state.modalValue,
         getModalStatus: (state) => state.modalStatus,
         getModalValue: (state) => state.modalValue,
-        getSubmitted: (state) => state.submitted
+        getSubmitted: (state) => state.submitted,
+        getSearchHits: (state) => state.searchHits,
+        getDisplayPagination: (state) => state.displayPagination,
+        getDisplayError: (state) => state.displayError
     },
     actions: {
         async getPhotos({ commit }, payload){
@@ -65,6 +71,17 @@ export const store = new Vuex.Store({
                     page: payload.page
                 }
             });
+            //  Check if search results is less than 15 or less than 0
+            if(response.data.total_results === 0){
+                this.state.displayPagination = false;
+                this.state.displayError = false;
+            }else if(response.data.total_results <= 15 && response.data.total_results  !== 0){
+                this.state.displayPagination = false;
+                this.state.displayError = true;
+            }else{
+                this.state.displayPagination = true;
+                this.state.displayError = true;
+            }
             console.log(response.data.total_results)
             commit('setPhotos', response.data)
         },

@@ -1,12 +1,13 @@
 <template>
     <div class="search-result">
         <h1 class="search-result-title">List</h1>
-        <p class="search-result-alert">Showing search results for <b>"{{ this.$route.params.id }}"</b></p>
+        <p class="search-result-alert" v-if="getDisplayError">Showing search results for <b>"{{ this.$route.params.id }}"</b></p>
+        <p class="search-result-alert" v-else>Search results for <b>"{{ this.$route.params.id }}" not found</b></p>
         <div class="all-photos">
             <div class="photos-container">
                 <snappy-photo v-for="(photo, index) in allPhotos" :key="photo.id" :sentPhoto="photo" :index="index" :id="photo.id"></snappy-photo>
             </div>
-            <snappy-paginate @nextPage="playNext()" @prevPage="playPrev()">
+            <snappy-paginate @nextPage="playNext()" @prevPage="playPrev()" v-show="getDisplayPagination">
                 <router-link :to="'/album/'+ $route.params.id + '/page/1'" class="page">1</router-link>
                 <router-link :to="'/album/'+ $route.params.id + '/page/2'" class="page">2</router-link>
                 <router-link :to="'/album/'+ $route.params.id + '/page/3'" class="page">3</router-link>
@@ -30,7 +31,7 @@ export default {
         SnappyPaginate
     },
     computed: {
-        ...mapGetters(['allPhotos'])
+        ...mapGetters(['allPhotos', 'getSearchHits', 'getDisplayPagination', 'getDisplayError'])
     },
     methods: {
         ...mapActions(['displayQuery']),
@@ -66,7 +67,7 @@ export default {
                 paginate.insertBefore(newItem, paginate.childNodes[5])
             }
             // console.log(this.$route.params.page)
-        }
+        },
     },
     created(){
         // console.log("Create Man")

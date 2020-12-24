@@ -1,46 +1,121 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from '../main'
+// import createPersistedState from "vuex-persistedstate"
+// import { createClient } from 'pexels';
+
+// const client = createClient('563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680');
+// const clienta = createClient('563492ad6f917000010000018bd146503edf4433b6c3d32f457ff256');
+
+// All requests made with the client will be authenticated
+
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
         photos: [],
-        todos: []
+        // todos: [],
+        modalValue: null,
+        modalStatus: false,
+        queryArray: [],
+        submitted: true,
+        searchHits: true,
+        displayPagination: true,
+        displayError: true
     },
 
     getters: {
-        allPhotos: (state) => state.photos
+        allPhotos: (state) => state.photos,
+        modalDialog: (state) => state.modalValue,
+        getModalStatus: (state) => state.modalStatus,
+        getModalValue: (state) => state.modalValue,
+        getSubmitted: (state) => state.submitted,
+        getSearchHits: (state) => state.searchHits,
+        getDisplayPagination: (state) => state.displayPagination,
+        getDisplayError: (state) => state.displayError
     },
     actions: {
-        async getPhotos({ commit }){
-            const response = await axios.get('http://localhost:3000/todos')
-            commit('setTodos', response.data)
+        async getPhotos({ commit }, payload){
+            const response = await axios.get('https://api.pexels.com/v1/curated',
+            {
+                headers: {
+                    authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
+                },
+                params: {
+                    page: payload,
+                    // total_results: 1000
+                }
+            })
+            console.log(response.data)
+            // console.log(response.data.photos)
+            commit('setPhotos', response.data)
 
         },
         async getFilteredPhotos ({ commit }, payload) {
-            const response = await axios.get('http://localhost:3000/todos');
+            const response = await axios.get('https://api.pexels.com/v1/search', {
+                headers: {
+                    authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
+                }
+            });
             commit('filterSearch', payload, response.data)
         },
         async displayQuery ({ commit }, payload) {
-            const response = await axios.get('http://localhost:3000/todos?q=' + payload);
-            commit('setTodos', response.data)
+            const response = await axios.get('https://api.pexels.com/v1/search', {
+                headers: {
+                    authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
+                },
+                params: {
+                    query: payload.id,
+                    page: payload.page
+                }
+            });
+            //  Check if search results is less than 15 or less than 0
+            if(response.data.total_results === 0){
+                this.state.displayPagination = false;
+                this.state.displayError = false;
+            }else if(response.data.total_results <= 15 && response.data.total_results  !== 0){
+                this.state.displayPagination = false;
+                this.state.displayError = true;
+            }else{
+                this.state.displayPagination = true;
+                this.state.displayError = true;
+            }
+            console.log(response.data.total_results)
+            commit('setPhotos', response.data)
         },
-        async changeState ({ commit },) {
-        const response = await axios.get('http://localhost:3000/todos');
-        commit('likePhoto', response.data)
-    }
+        async getSinglePhoto ({ commit }, payload) {
+            const response = await axios.get('https://api.pexels.com/v1/photos/' + payload, {
+                headers: {
+                    authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
+                },
+            });
+            console.log("Response is", response.data)
+            commit('isShowing', response.data)
+        },
+        async setLikedStatus ({ commit }, payload) {
+            const response = await axios.get('https://api.pexels.com/v1/photos/' + payload, {
+                headers: {
+                    authorization: '563492ad6f9170000100000126e51c336e8d4a42b44b5824b89c6680'
+                },
+            });
+            console.log("Response is", response.data)
+            commit('likePhoto', response.data)
+        },
+
     },
     mutations: {
-        setTodos: (state, album) => {
-            return state.photos = album;
+        setPhotos: (state, album) => {
+            // console.log(album.photos)
+            return state.photos = album.photos;
+        },
+        setQueryPhoto: (state, album) => {
+            return state.queryArray = album.photos;
         },
         filterSearch: (state, payload) => {
             // Loop hrough todos
             // Loop through todo keywords array
-
-
             state.todos = state.photos.filter(element => {
                 console.log(element.searchKeys)
 
@@ -49,9 +124,37 @@ export const store = new Vuex.Store({
         },
         likePhoto: (state, payload) => {
             console.log("Payload = " + payload)
-            state.photos.find(el => el.id === payload.photoId).liked = payload.liked
-            // return !state.photos[payload].liked;
+            payload.liked = !payload.liked
+            // state.modalValue.liked = !state.modalValue.liked
+        },
 
+        isShowing: (state, payload) => {
+            state.modalStatus = !state.modalStatus;
+            // state.modalValue = JSON.parse(payload);
+            state.modalValue = payload;
+
+            /****** */
+            // Save state to localStorage
+            /****** */
+            localStorage.setItem('modalStatus', true)
+            localStorage.setItem('modalValue.id', state.modalValue.id)
+            localStorage.setItem('modalValue', JSON.stringify(state.modalValue))
+            localStorage.setItem('submitted', state.submitted)
+        },
+        initializeStore: (state) => {
+
+                    /************************** */
+                    /****  Persisted State ****/
+                    /************************** */
+
+            if(router.currentRoute.params.id === localStorage.getItem('modalValue.id')){ // Check if route id is same as in localStorage
+                if (localStorage.getItem('modalStatus')) { //Check if status is true in localStorage
+                    state.modalStatus = true;
+                    state.modalValue = JSON.parse(localStorage.getItem('modalValue'))
+                    state.submitted = !localStorage.getItem('submitted')
+                }
+            }
         }
     },
+    // plugins: [createPersistedState()]
 })

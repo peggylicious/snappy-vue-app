@@ -1,21 +1,37 @@
 <template>
   <div id="app">
-    <snappy-header></snappy-header>
-    <snappy-hero></snappy-hero>
-    <router-view></router-view>
+    <div class="snappy-conta" :class="{demo: getModalStatus}">
+      <snappy-header></snappy-header>
+      <snappy-hero></snappy-hero>
+      <!-- <div :class="{'overlay-body': getModalStatus}"> -->
+        <snappy-modal></snappy-modal>
+      <!-- </div> -->
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import SnappyHeader from './components/SnappyHeader'
 import SnappyHero from './components/SnappyHero'
+// import SnappyModal from './components/SnappyModal'
+import SnappyModal from './components/ProjectModal'
 
 export default {
   name: 'App',
   components: {
     SnappyHeader,
     SnappyHero,
-  }
+    SnappyModal
+  },
+  computed: {
+    ...mapGetters(['getModalStatus'])
+  },
+// beforeRouteLeave(next){
+//         console.log("Before Route Update")
+//         next()
+//     }
 }
 </script>
 
@@ -37,5 +53,18 @@ body{
   text-align: center;
   color: #2c3e50;
   /* margin-top: 60px; */
+}
+.demo{
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.overlay-body{
+  position: absolute;
+  /* top: 0; */
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, .8);
+  z-index: 8;
 }
 </style>

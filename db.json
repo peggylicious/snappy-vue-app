@@ -6,7 +6,8 @@
         "id": 1,
         "photo": "pexels-andrea-piacquadio-840996-office.jpg",
         "searchKeys": "['office', 'interior', 'happy']",
-        "liked": false
+        "liked": false,
+        "author": "andrea-piacquadio"
       },
       {
         "title": "fugiat veniam minus",
@@ -14,7 +15,8 @@
         "id": 2,
         "photo": "pexels-bess-hamiti-35537-baby-boy.jpg",
         "searchKeys": "['baby', 'boy', 'baby boy', 'child']",
-        "liked": false
+        "liked": false,
+        "author": "bess-hamiti"
 
       },
       {
@@ -23,7 +25,8 @@
         "id": 3,
         "photo": "pexels-cadeau-maestro-1170412-office.jpg",
         "searchKeys": "['office', 'interior']",
-        "liked": false
+        "liked": false,
+        "author": "cadeau-maestro"
 
       },
       {
@@ -32,7 +35,8 @@
         "id": 4,
         "photo": "pexels-daniel-xavier-908602-happy.jpg",
         "searchKeys": "['happy', 'joy']",
-        "liked": false
+        "liked": false,
+        "author": "daniel-xavier"
 
       },
       {
@@ -41,7 +45,8 @@
         "id": 5,
         "photo": "pexels-just-name-1236678-happy.jpg",
         "searchKeys": "['happy', 'joy']",
-        "liked": false
+        "liked": false,
+        "author": "just-name"
 
       },
       {
@@ -50,7 +55,8 @@
         "id": 6,
         "photo": "pexels-kha-ruxury-933186-baby-girl.jpg",
         "searchKeys": "['baby', 'girl', 'baby girl', 'child']",
-        "liked": false
+        "liked": false,
+        "author": "kha-ruxury"
 
       }
 
